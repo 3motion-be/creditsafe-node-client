@@ -95,7 +95,7 @@ export class Creditsafe {
     if (!isForm) {
       headers = { ...headers, 'Content-Type': 'application/json' }
     }
-    // allow a few retries on the authentication token expiration
+    // allow a few retries on the authentication token expiration and rate limiting
     let response
     for (let cnt = 0; cnt < 3; cnt++) {
       if (uri !== 'authenticate' || method !== 'POST') {
@@ -120,6 +120,16 @@ export class Creditsafe {
             return { response: { ...response, payload: auth } }
           }
           // ...and try it all again... :)
+          continue
+        }
+        // check for rate limiting (429 Too Many Requests)
+        if (response.status == 429 && cnt < 4) {
+          let delayMs = 2000 * Math.pow(2, cnt)
+          const retryAfter = response.headers?.get('Retry-After')
+          if (retryAfter) {
+            delayMs = isNaN(Number(retryAfter)) ? 2000 : Number(retryAfter) * 1000
+          }
+          await new Promise(resolve => setTimeout(resolve, delayMs))
           continue
         }
         return { response, payload }
