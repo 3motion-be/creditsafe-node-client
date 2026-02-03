@@ -46,8 +46,8 @@
     "@types/formdata": "^0.10.1",
     "@types/node": ">=10.0.0",
     "camelcase-keys": "^6.2.2",
-    "form-data": "^3.0.1",
-    "node-fetch": "^2.6.1",
+    "form-data": "^3.0.4",
+    "node-fetch": "^2.7.0",
     "snakecase-keys": "^4.0.2"
   },
   "scripts": {
