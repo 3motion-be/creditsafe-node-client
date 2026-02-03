@@ -1,5 +1,5 @@
 {
-  "name": "creditsafe-node-client",
+  "name": "@3motion-be/creditsafe-node-client",
   "version": "0.2.0",
   "description": "Node.js Client for Creditsafe Connect API",
   "keywords": [
