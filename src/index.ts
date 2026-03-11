@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import FormData = require('formdata')
+import FormData = require('form-data')
 import path from 'path'
 import camelCaseKeys from 'camelcase-keys'
 

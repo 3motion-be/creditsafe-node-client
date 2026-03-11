@@ -76,6 +76,15 @@ export interface CreditReport {
   alternateSummary?: any;
 }
 
+function getPayloadError(payload: any): string | undefined {
+  const baseError = payload?.error || payload?.message
+  const detailsMessage = payload?.details
+  if (detailsMessage) {
+    return baseError ? `${baseError}: ${detailsMessage}` : detailsMessage
+  }
+  return baseError
+}
+
 export class CompanyApi {
   client: Creditsafe;
 
@@ -131,7 +140,7 @@ export class CompanyApi {
         success: false,
         error: {
           type: 'creditsafe',
-          error: resp?.payload?.error || resp?.payload?.message,
+          error: getPayloadError(resp?.payload),
         },
       }
     }
@@ -171,7 +180,7 @@ export class CompanyApi {
         success: false,
         error: {
           type: 'creditsafe',
-          error: resp?.payload?.error || resp?.payload?.message,
+          error: getPayloadError(resp?.payload),
         },
       }
     }
@@ -203,7 +212,7 @@ export class CompanyApi {
         success: false,
         error: {
           type: 'creditsafe',
-          error: resp?.payload?.error || resp?.payload?.message,
+          error: getPayloadError(resp?.payload),
         },
       }
     }
@@ -254,7 +263,7 @@ export class CompanyApi {
         success: false,
         error: {
           type: 'creditsafe',
-          error: resp?.payload?.error || resp?.payload?.message,
+          error: getPayloadError(resp?.payload),
         },
       }
     }
